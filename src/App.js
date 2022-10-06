@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { ReactReader } from "react-reader";
 
 function App() {
+  const [location, setLocation] = useState(null);
+  const locationChanged = (epubcifi) => {
+    // epubcifi is a internal string used by epubjs to point to a location in an epub. It looks like this: epubcfi(/6/6[titlepage]!/4/2/12[pgepubid00003]/3:0)
+    setLocation(epubcifi);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ height: "100vh" }}>
+      <ReactReader
+        location={location}
+        locationChanged={locationChanged}
+        // url="https://react-reader.metabits.no/files/alice.epub"
+        url="/sample.epub"
+      />
     </div>
   );
 }
